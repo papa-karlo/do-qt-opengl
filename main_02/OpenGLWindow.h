@@ -1,13 +1,10 @@
 /************************************************************************************
 
-OpenGL with Qt - Tutorial
--------------------------
-Autor      : Andreas Nicolai <andreas.nicolai@gmx.net>
-Repository : https://github.com/ghorwin/OpenGLWithQt-Tutorial
-License    : BSD License,
-			 see https://github.com/ghorwin/OpenGLWithQt-Tutorial/blob/master/LICENSE
-
-Source code is based on Qt Example OpenGLWindow, but has been simplified a lot.
+OpenGL with Qt - main version
+Autor      : Papa Karlo <do.insys@gmail.com>
+Repository : https://github.com/papa-karlo/do-qt-opengl
+License    : MIT License,
+			 see https://github.com/papa-karlo/do-qt-opengl/main/LICENSE
 
 ************************************************************************************/
 
