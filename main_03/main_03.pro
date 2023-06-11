@@ -29,11 +29,15 @@ win32 {
 SOURCES += \
 		main.cpp \
 		OpenGLWindow.cpp \
-		MainGLWindow.cpp
+		MainGLWindow.cpp \
+		GlObj.cpp \
+		GlObjCommon.cpp
 
 HEADERS += \
 		OpenGLWindow.h \
-		MainGLWindow.h
+                MainGLWindow.h \
+		GlObj.h \
+                GlObjCommon.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

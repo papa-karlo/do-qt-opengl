@@ -191,6 +191,8 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GlObjCommon.cpp" />
+    <ClCompile Include="GlObj.cpp" />
     <ClCompile Include="OpenGLWindow.cpp" />
     <ClCompile Include="MainGLWindow.cpp" />
     <ClCompile Include="main.cpp" />
@@ -198,6 +200,8 @@
   <ItemGroup>
     <QtMoc Include="OpenGLWindow.h">
     </QtMoc>
+    <QtMoc Include="GlObj.h" />
+    <ClInclude Include="GlObjCommon.h" />
     <ClInclude Include="MainGLWindow.h" />
   </ItemGroup>
   <ItemGroup>
@@ -219,6 +223,9 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <None Include="main_03.pro" />
+    <None Include="shaders\grid.frag" />
+    <None Include="shaders\grid.vert" />
     <None Include="shaders\pass_through_grid.vert" />
     <None Include="shaders\uniform_color_grid.frag" />
     <QtRcc Include="main_03.qrc">

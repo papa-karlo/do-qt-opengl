@@ -4,5 +4,7 @@
         <file>shaders/pass_through_grid.vert</file>
         <file>shaders/uniform_color.frag</file>
         <file>shaders/uniform_color_grid.frag</file>
+        <file>shaders/grid.frag</file>
+        <file>shaders/grid.vert</file>
     </qresource>
 </RCC>
