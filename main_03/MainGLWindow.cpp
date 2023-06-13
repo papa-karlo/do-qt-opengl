@@ -14,7 +14,8 @@ License    : MIT License,
 
 MainGLWindow::MainGLWindow() 
 {
-	grid = new GlObjCommon();
+	m_grid = new GlObjCommon();
+	m_triangle = new GlObjCommon();
 }
 
 
@@ -30,7 +31,9 @@ MainGLWindow::~MainGLWindow() {
 	m_vao.destroy();
 	m_vertexBufferObject.destroy();
 	delete m_program;
-	//delete m_program_grid;
+	delete m_grid;
+	delete m_triangle;
+
 }
 
 
@@ -73,26 +76,26 @@ void MainGLWindow::initialize() {
 	  0.75f, -1.0f, 0.0f
 	};
 
-	float vertices_color[] = {
+	float grid_color[] = {
 		0.2f, 0.2f, 0.2f
 	};
 
 	//grid->init(vertices_grid, sizeof(vertices_grid), GL_LINES, ":/shaders/pass_through_grid.vert", ":/shaders/uniform_color_grid.frag");
-    grid->init(vertices_grid, sizeof(vertices_grid), GL_LINES, vertices_color, sizeof(vertices_color),  ":/shaders/grid.vert", ":/shaders/grid.frag");
+    m_grid->init(vertices_grid, sizeof(vertices_grid), GL_LINES, grid_color, sizeof(grid_color),  ":/shaders/grid.vert", ":/shaders/grid.frag");
 	
-	/*
-	m_program_grid = new QOpenGLShaderProgram();
+	
+	
+	float vertices_triangle[] = {
+		-0.5f, -0.5f, 0.0f,
+		 0.5f, -0.5f, 0.0f,
+		 0.0f,  0.5f, 0.0f
+	};
+	float triangle_color[] = {
+		1.0f, 0.0f, 0.0f		// red
+	};
 
-	// read the shader programs from the resource
-	if (!m_program_grid->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/pass_through_grid.vert"))
-		qDebug() << "Vertex shader errors:\n" << m_program_grid->log();
+	m_triangle->init(vertices_triangle, sizeof(vertices_triangle), GL_TRIANGLES, triangle_color, sizeof(triangle_color), ":/shaders/grid.vert", ":/shaders/grid.frag");
 
-	if (!m_program_grid->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/uniform_color_grid.frag"))
-		qDebug() << "Fragment shader errors:\n" << m_program_grid->log();
-
-	if (!m_program_grid->link())
-		qDebug() << "Shader linker errors:\n" << m_program_grid->log();
-	*/
 
 	m_program = new QOpenGLShaderProgram();
 
@@ -236,9 +239,13 @@ void MainGLWindow::render() {
 	glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	grid->bind();
-	grid->draw();
-	grid->release();
+	m_grid->bind();
+	m_grid->draw();
+	m_grid->release();
+
+	m_triangle->bind();
+	m_triangle->draw();
+	m_triangle->release();
 
 	return;
 

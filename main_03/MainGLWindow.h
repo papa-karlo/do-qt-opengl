@@ -44,7 +44,8 @@ private:
 	QOpenGLShaderProgram		*m_program;
 	//QOpenGLShaderProgram		*m_program_grid;
 
-	GlObjCommon* grid;
+	GlObjCommon* m_grid;
+	GlObjCommon* m_triangle;
 };
 
 #endif // MainGLWindow_H
