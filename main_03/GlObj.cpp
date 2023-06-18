@@ -62,7 +62,7 @@ void GlObj::_init(float *vertices, int vsize, int mode, float *color, int csize,
 
 	m_vertexBufferObject.bind(); // set it active in the context, so that we can write to it
 	//m_vertexBufferObject.allocate(vertices, sizeof(vertices)); // copy data into buffer
-	m_vertexBufferObject.allocate(vertices, vsize * 3 * sizeof(float)); // copy data into buffer
+    m_vertexBufferObject.allocate(vertices, m_vsize * 3 * sizeof(float)); // copy data into buffer
 
 	// Initialize the Vertex Array Object (VAO) to record and remember subsequent attribute assocations with
 	// generated vertex buffer(s)

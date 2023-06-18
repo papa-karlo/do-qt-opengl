@@ -28,9 +28,9 @@ MainGLWindow::~MainGLWindow() {
 	if (!success)
 		qDebug() << "Cannot make OpenGL context current.";
 
-	m_vao.destroy();
-	m_vertexBufferObject.destroy();
-	delete m_program;
+    //m_vao.destroy();
+    //m_vertexBufferObject.destroy();
+//	delete m_program;
 	delete m_grid;
 	delete m_triangle;
 
@@ -44,8 +44,10 @@ void MainGLWindow::initialize() {
 	// build and compile our shader program
 	// ------------------------------------
 
-	float vertices_grid[] = {
-	 -1.0f, 0.75f, 0.0f,
+    //float vertices_grid[30*2*3];// =    //grid x=10/Y=8
+    float vertices_grid[]
+    {
+     -1.0f, 0.75f, 0.0f,
 	 1.0f,  0.75f, 0.0f,
 	 -1.0f, 0.5f, 0.0f,
 	 1.0f,  0.5f, 0.0f,
@@ -73,17 +75,117 @@ void MainGLWindow::initialize() {
 	  0.5f, 1.0f, 0.0f,
 	  0.5f, -1.0f, 0.0f,
 	  0.75f, 1.0f, 0.0f,
-	  0.75f, -1.0f, 0.0f
-	};
+      0.75f, -1.0f, 0.0f
 
-	float grid_color[] = {
-		0.2f, 0.2f, 0.2f
+        -0.75f, 1.0f, 0.0f,
+        -0.75f, -1.0f, 0.0f,
+        -0.5f, 1.0f, 0.0f,
+        -0.5f, -1.0f, 0.0f,
+        -0.25f, 1.0f, 0.0f,
+        -0.25f, -1.0f, 0.0f,
+         0.0f, 1.0f, 0.0f,
+         0.0f, -1.0f, 0.0f,
+         0.25f, 1.0f, 0.0f,
+         0.25f, -1.0f, 0.0f,
+         0.5f, 1.0f, 0.0f,
+         0.5f, -1.0f, 0.0f,
+         0.75f, 1.0f, 0.0f,
+         0.75f, -1.0f, 0.0f
+
+        -0.75f, 1.0f, 0.0f,
+        -0.75f, -1.0f, 0.0f,
+        -0.5f, 1.0f, 0.0f,
+        -0.5f, -1.0f, 0.0f,
+        -0.25f, 1.0f, 0.0f,
+        -0.25f, -1.0f, 0.0f,
+         0.0f, 1.0f, 0.0f,
+         0.0f, -1.0f, 0.0f,
+         0.25f, 1.0f, 0.0f,
+         0.25f, -1.0f, 0.0f,
+         0.5f, 1.0f, 0.0f,
+         0.5f, -1.0f, 0.0f,
+         0.75f, 1.0f, 0.0f,
+         0.75f, -1.0f, 0.0f
+    };
+
+    // Coordinates X,Y calculate
+
+    for(int ii=0;ii<sizeof(vertices_grid)/sizeof(float);ii++)   //clear array
+        vertices_grid[ii] = 0.0;
+
+//    int x_lines = 6;
+//    int y_lines = 5;
+
+    float x_max = 1.0;
+    float y_max = 1.0;
+
+    int x_grid = 10;
+    int y_grid = 8;
+
+    float dx_offset = 0.8;
+    float dy_offset = 0.5;
+
+    // calculate coordinates X/Y - Vertical
+    float dx = 2.0*x_max/(x_grid+2);//x_lines;
+    float x_offset = dx*dx_offset;//dx/2;
+//    dx += (2*x_offset)/(2*x_lines);
+    dx += (2*x_offset)/(x_grid+2);
+
+    //float dy = 1.0/y_lines;
+    float dy = 2.0*y_max/(y_grid+2);//y_lines;
+    float y_offset = dy*dy_offset;
+    //dy += (2*y_offset)/(2*y_lines);
+    dy += (2*y_offset)/(y_grid+2);
+
+    //for(int ii=0;ii<x_lines*2-1;ii++) {
+    for(int ii=0;ii<x_grid+1;ii++) {
+        vertices_grid[2*ii*3]     = -1.0+dx*(ii+1)-x_offset;    // par coords for line draw
+        vertices_grid[2*ii*3+1]   = -1.0+dy-y_offset;
+
+        vertices_grid[2*ii*3+3]   = -1.0+dx*(ii+1)-x_offset;
+        vertices_grid[2*ii*3+3+1] = 1.0-dy+y_offset;
+    }
+
+    // calculate coordinates X/Y - Horizontal
+    //float _dy = 1.0/y_lines;
+    float _dy = 2.0*y_max/(y_grid+2);//y_lines;
+    //_dy += (2*y_offset)/(2*y_lines);
+    _dy += (2*y_offset)/(y_grid+2);
+
+    //float _dx = 1.0/x_lines;
+    float _dx = 2.0*x_max/(x_grid+2);//x_lines;
+    //_dx += (2*x_offset)/(2*x_lines);
+    _dx += (2*x_offset)/(x_grid+2);
+
+    for(int ii=0;ii<y_grid+1;ii++) {
+        vertices_grid[3*2*(x_grid+1)+2*ii*3+1]   = -1.0+_dy*(ii+1)-y_offset;
+        vertices_grid[3*2*(x_grid+1)+2*ii*3]     = -1.0+_dx-x_offset;
+
+        vertices_grid[3*2*(x_grid+1)+2*ii*3+3+1] = -1.0+_dy*(ii+1)-y_offset;
+        vertices_grid[3*2*(x_grid+1)+2*ii*3+3]   = 1.0-_dx+x_offset;
+    }
+
+/*
+    // calculate coordinates X
+    float _dx = 1.0/x_lines;
+    _dx += (2*x_offset)/(2*x_lines);
+    for(int ii=0;ii<y_lines*2;ii++) {
+        vertices_grid[3*2*(x_lines*2-1)+2*ii*3]   = -1.0+_dx-x_offset;
+        vertices_grid[3*2*(x_lines*2-1)+2*ii*3+3] = 1.0-_dx+x_offset;
+        //vertices_grid[3*2*(x_lines*2-1)+2*ii*3+3] = -1.0-x_offset+_dx*((2*x_lines-1));
+    }
+*/
+    float grid_color[] = {
+        0.3f, 0.3f, 0.3f
 	};
 
 	//grid->init(vertices_grid, sizeof(vertices_grid), GL_LINES, ":/shaders/pass_through_grid.vert", ":/shaders/uniform_color_grid.frag");
     m_grid->init(vertices_grid, sizeof(vertices_grid), GL_LINES, grid_color, sizeof(grid_color),  ":/shaders/grid.vert", ":/shaders/grid.frag");
+
+    //m_grid->init(vertices_grid, 6*sizeof(float), GL_LINES, grid_color, sizeof(grid_color),  ":/shaders/grid.vert", ":/shaders/grid.frag");
 	
-	
+    //return;
+
 	
 	float vertices_triangle[] = {
 		-0.5f, -0.5f, 0.0f,
@@ -96,6 +198,8 @@ void MainGLWindow::initialize() {
 
 	m_triangle->init(vertices_triangle, sizeof(vertices_triangle), GL_TRIANGLES, triangle_color, sizeof(triangle_color), ":/shaders/grid.vert", ":/shaders/grid.frag");
 
+
+    return;
 
 	m_program = new QOpenGLShaderProgram();
 
@@ -242,6 +346,8 @@ void MainGLWindow::render() {
 	m_grid->bind();
 	m_grid->draw();
 	m_grid->release();
+
+    //return;
 
 	m_triangle->bind();
 	m_triangle->draw();
