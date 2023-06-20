@@ -31,19 +31,8 @@ public:
 	void render() Q_DECL_OVERRIDE;
 
 private:
-	// Wraps an OpenGL VertexArrayObject (VAO)
-	QOpenGLVertexArrayObject	m_vao;
-	QOpenGLVertexArrayObject	m_vao2;
-	//QOpenGLVertexArrayObject	m_vao_grid;
-	// Vertex buffer (only positions now).
-	QOpenGLBuffer				m_vertexBufferObject;
-	QOpenGLBuffer				m_vertexBufferObject2;
-	//QOpenGLBuffer				m_vertexBufferObjectGrid;
 
-	// Holds the compiled shader programs.
-	QOpenGLShaderProgram		*m_program;
-	//QOpenGLShaderProgram		*m_program_grid;
-
+    // Objects for draw
 	GlObjCommon* m_grid;
 	GlObjCommon* m_triangle;
 };

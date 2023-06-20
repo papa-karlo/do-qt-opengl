@@ -27,8 +27,8 @@ public:
 	virtual void initialize() = 0;
 
 public slots:
-	void renderLater();
-	void renderNow();
+    void renderLater();
+    void renderNow();
 
 protected:
 	bool event(QEvent *event) Q_DECL_OVERRIDE;

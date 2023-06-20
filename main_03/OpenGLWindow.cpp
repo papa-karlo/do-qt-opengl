@@ -69,11 +69,9 @@ void OpenGLWindow::renderNow() {
 		initialize(); // user code
 	}
 
-	//for (int i = 0; i < 16; i++) 
 	{
 		render(); // user code
 		m_context->swapBuffers(this);
-		//_sleep(1000);
 	}
 }
 

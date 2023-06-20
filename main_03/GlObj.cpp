@@ -27,8 +27,6 @@ int GlObj::bind()
 int GlObj::release()
 {
 	m_vao.release();
-	//m_program->release();
-
 	return 0;
 }
 
